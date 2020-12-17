@@ -29,19 +29,42 @@ DEBUG = True
 ALLOWED_HOSTS = ["192.168.0.23", "127.0.0.1",]
 #ALLOWED_HOSTS = ["192.168.219.133", "127.0.0.1",]
 #ALLOWED_HOSTS = ["192.168.0.207", "127.0.0.1",]
-# Application definition
 
+# Application definition
 INSTALLED_APPS = [
     'pybo.apps.PyboConfig',
     'common.apps.CommonConfig',
-    
+    'portfolio.apps.PortfolioConfig',   
+
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions',    
+    'django.contrib.staticfiles',    
+    'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #provider
+    'allauth.socialaccount.providers.google',
+  	'allauth.socialaccount.providers.naver',
+
+    # THUMBNAIL
+    'imagekit',
 ]
+
+# site_id is primary key for queryset item in the site application.
+# if add a site instead of replacing for the given examples.com, then you should use 2.
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,6 +89,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -103,6 +128,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

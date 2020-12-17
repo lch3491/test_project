@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% for portfolio in portfolios.all %}
+<div class="col-lg-6 portfolio-item">
+    <div class="card h-100">
+        {# <img class="card-img-top" src="{{ portfolio.image_thumbnail.url }}" alt=""> #}
+        <a href="#"><img src="{{ portfolio.image_thumbnail.url }}" alt=""></a>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="#"> {{ portfolio.title }} </a>
+            </h4>
+            <p class="card-text"> {{ portfolio.description }} </p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %} 
